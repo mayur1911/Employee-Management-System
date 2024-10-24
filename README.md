@@ -1,5 +1,5 @@
 
-# RedisCachingWebApi
+# Employee Management System with Redis Caching and Dockerized DB Solution
 
 ## Introduction
 RedisCachingWebApi is a .NET 7.0 Web API project that demonstrates how to implement caching using Redis. The API handles employee data and supports standard CRUD operations. The project runs inside Docker containers for seamless deployment and scalability, using SQL Server for data storage and Redis for caching.
