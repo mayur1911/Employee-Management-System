@@ -13,6 +13,7 @@
 
         // Project Name (Optional, max length 20)
         public string ProjectName { get; set; }
+        public decimal Salary { get; set; }
 
         // newId output parameter for the stored procedure
         public int NewId { get; set; }  // Dapper will automatically treat this as an output parameter

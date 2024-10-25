@@ -3,6 +3,7 @@
     @ManagerName NVARCHAR(50),       -- Manager Name  
     @ManagerDesignation NVARCHAR(50) = NULL, -- Manager Designation (optional)  
     @ProjectName NVARCHAR(50) = NULL,        -- Project Name (optional)  
+    @Salary DECIMAL(6,2) = NULL,
     @newId INT=0 OUTPUT              -- Output parameter to return the ManagerID  
 AS  
 BEGIN  
@@ -21,14 +22,15 @@ BEGIN
         UPDATE Manager  
         SET ManagerName = @ManagerName,  
             ManagerDesignation = @ManagerDesignation,  
-            ProjectName = @ProjectName  
+            ProjectName = @ProjectName,
+            Salary = @Salary
         WHERE ManagerID = @ManagerID;
     END  
     ELSE  
     BEGIN  
         -- Insert a new manager and set @newId to the new ManagerID  
-        INSERT INTO Manager (ManagerName, ManagerDesignation, ProjectName)  
-        VALUES (@ManagerName, @ManagerDesignation, @ProjectName);  
+        INSERT INTO Manager (ManagerName, ManagerDesignation, ProjectName ,Salary)  
+        VALUES (@ManagerName, @ManagerDesignation, @ProjectName,@Salary);  
   
         -- Return the newly inserted ManagerID  
         SET @newId = SCOPE_IDENTITY();  

@@ -13,5 +13,7 @@
 
         // Project Name (Optional, max length 20)
         public string ProjectName { get; set; }
+
+        public decimal Salary { get; set; }
     }
 }

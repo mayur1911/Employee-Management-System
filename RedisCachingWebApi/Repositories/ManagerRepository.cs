@@ -24,6 +24,7 @@ namespace RedisCachingWebApi.Repositories
             parameters.Add("@ManagerName", manager.ManagerName);
             parameters.Add("@ManagerDesignation", manager.ManagerDesignation);
             parameters.Add("@ProjectName", manager.ProjectName);
+            parameters.Add("@Salary", manager.Salary);
 
             // Set the output parameter
             parameters.Add("@newId", dbType: DbType.Int32, direction: ParameterDirection.Output);

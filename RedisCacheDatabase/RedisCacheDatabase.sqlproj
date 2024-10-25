@@ -68,6 +68,10 @@
     <Build Include="StoredProcedure\dbo.sp_GetManagerById.sql" />
     <Build Include="StoredProcedure\dbo.sp_DeleteManagerById.sql" />
     <Build Include="StoredProcedure\dbo.sp_GetAllManager.sql" />
+    <Build Include="StoredProcedure\dbo.getNthHighestSalary.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StoredProcedure\SQLNotes.sql" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>
