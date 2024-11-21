@@ -32,9 +32,41 @@ namespace RedisCachingWebApi.Application.Handlers.Manager
             {
                 Response response = new();
 
-                var mangerData = await _managerRepository.GetAllManagerDatasAsync();
+                var managerData = await _managerRepository.GetAllManagerDatasAsync();
+                var salaryHigh3400 = managerData.Where(x => x.Salary >= 3400 && x.ManagerName=="string").ToList();
 
-                response.FormData = _mapper.Map<ManagerModel[]>(mangerData);
+                var salarySort = managerData.OrderBy(x => x.Salary).Select(x => new {x.Salary,x.ProjectName}).ToList();
+                var salarySortDesc = managerData.OrderByDescending(x=>x.Salary).ToList();
+
+                var mayurData = managerData.FirstOrDefault(x => x.ManagerName == "MAYUR YEOLE");
+                try
+                {
+                    var mayurExcData = managerData.First(x => x.ManagerName == "MAYUR YEOLE");
+                }
+                catch (Exception ex)
+                { 
+                
+                }
+
+                var onlyDesignation = managerData.Select(x => x.ManagerDesignation).ToList();
+
+                // If you want to create an anonymous object with both Name and Salary, use:
+                var managerInfo = managerData.Select(x => new { x.ManagerName, x.Salary }).ToList();
+
+                var totSalary = managerData.Sum(x => x.Salary);
+                var avgSalary = managerData.Average(x => x.Salary);
+
+                var taxProjManager = managerData.Any(x => x.ProjectName == "tax");
+                var taxAllManager = managerData.All(x => x.ProjectName == "tax");
+
+                var taxProjManagerDesc = managerData.Where(x => x.ProjectName=="tax").ToList();
+
+
+                // grp by prject name
+                var projectGroup = managerData.GroupBy(x => x.ProjectName).Select(x => x).ToList();
+                var projectNamesGroup = managerData.GroupBy(x => x.ProjectName).Select(grp => new { projectname = grp.Key, Count = grp.Count() });
+
+                response.FormData = _mapper.Map<ManagerModel[]>(managerData);
                 return response;
             }
         }

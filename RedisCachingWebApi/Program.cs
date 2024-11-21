@@ -90,8 +90,21 @@ builder.Services.AddAuthorization(options =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", builder =>
+        builder.WithOrigins("http://localhost:3000")
+               .AllowAnyHeader()
+               .AllowAnyMethod());
+});
+
+
+
+
 // Section: Build and Configure the HTTP Request Pipeline
 var app = builder.Build();
+
+app.UseCors("AllowReactApp");
 
 // Section: Development Environment
 // Show detailed error pages and enable Swagger when in development mode.

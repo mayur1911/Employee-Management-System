@@ -3,7 +3,7 @@
     @ManagerName NVARCHAR(50),       -- Manager Name  
     @ManagerDesignation NVARCHAR(50) = NULL, -- Manager Designation (optional)  
     @ProjectName NVARCHAR(50) = NULL,        -- Project Name (optional)  
-    @Salary DECIMAL(6,2) = NULL,
+    @Salary DECIMAL(10,2) = NULL,
     @newId INT=0 OUTPUT              -- Output parameter to return the ManagerID  
 AS  
 BEGIN  
