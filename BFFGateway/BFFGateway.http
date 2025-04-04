@@ -1,0 +1,6 @@
+@BFFGateway_HostAddress = http://localhost:5190
+
+GET {{BFFGateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
