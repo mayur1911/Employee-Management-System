@@ -1,7 +1,10 @@
-using Microsoft.AspNetCore.DataProtection;
+﻿using Microsoft.AspNetCore.DataProtection;
+using Microsoft.EntityFrameworkCore;
 using RedisCachingWebApi.Application.Handlers.Manager;
+using RedisCachingWebApi.Data;
 using RedisCachingWebApi.Interface;
 using RedisCachingWebApi.Repositories;
+using RedisCachingWebApi.Services;
 using RedisCachingWebApi.Swagger;
 using Serilog;
 using StackExchange.Redis;
@@ -9,6 +12,14 @@ using System.Data;
 using System.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// 1️⃣ Add DbContext
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Employee")));
+
+// 2️⃣ Add Authentication & Authorization (if not done already)
+builder.Services.AddAuthentication(/* Jwt config */);
+builder.Services.AddAuthorization();
 
 // Section: Logging with Serilog
 // Configure Serilog to log to both the console and a file, with daily log rotation.
@@ -47,6 +58,7 @@ builder.Services.AddScoped<IDbConnection>(sp =>
 //builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<EmployeeRepository>();
 builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
+builder.Services.AddScoped<TokenService>();
 
 // Section: Redis Caching
 // Register Redis for distributed caching and set the Redis instance name.
@@ -79,16 +91,15 @@ builder.Services.AddSwaggerGen(options =>
     options.SchemaFilter<CustomSchemaIdStrategy>();  // Register the custom schema filter
 });
 
-
 // Section: Authorization
 // Register a default authorization policy that requires authenticated users.
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("DefaultPolicy", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-    });
-});
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("DefaultPolicy", policy =>
+//    {
+//        policy.RequireAuthenticatedUser();
+//    });
+//});
 
 builder.Services.AddCors(options =>
 {
@@ -97,9 +108,6 @@ builder.Services.AddCors(options =>
                .AllowAnyHeader()
                .AllowAnyMethod());
 });
-
-
-
 
 // Section: Build and Configure the HTTP Request Pipeline
 var app = builder.Build();
