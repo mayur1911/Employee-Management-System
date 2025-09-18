@@ -12,7 +12,8 @@ namespace RedisCachingWebApi.Controller
 
         public ManagerController(IMediator mediator)
         {
-            _mediator = mediator;}
+            _mediator = mediator;
+        }
 
         // POST: api/manager
         [HttpPost]

@@ -1,4 +1,32 @@
-﻿-- select 2nd Highest salary
+﻿select UPPER(ManagerName),* from Manager
+SELECT DISTINCT(Salary) FROM Manager
+
+
+--- CREATE copy of one table 
+SELECT * INTO DUMMY FROM Manager
+SELECT * FROM DUMMY
+
+-- replace char in value
+SELECT REPLACE(ManagerName,'M','T') FROM Manager
+
+
+-- concat two columns
+select concat(ManagerName ,' -> ',ManagerDesignation) from Manager
+
+-- get manager with salary eithr with 20k or 30k
+select * from Manager where Salary in (20000,30000)
+
+
+-- Get 2nd highest salary using TOP
+select top 1 salary from 
+( select top 2 salary from manager order by Salary desc) as t order by Salary asc
+-- using nested statement above
+
+--Now second actual max salary
+select top 1 salary from 
+( select distinct top 2  salary from manager order by Salary desc) as t order by Salary asc
+
+-- select 2nd Highest salary
 SELECT MAX(Salary) AS SecondHighestSalary
 FROM Manager
 WHERE Salary < (SELECT MAX(Salary) FROM Manager);

@@ -71,6 +71,7 @@
     <Build Include="StoredProcedure\dbo.sp_GetAllManager.sql" />
     <Build Include="StoredProcedure\dbo.getNthHighestSalary.sql" />
     <Build Include="Tables\LoginJWT\Users.sql" />
+    <Build Include="Tables\dbo.Worker.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StoredProcedure\SQLNotes.sql" />
