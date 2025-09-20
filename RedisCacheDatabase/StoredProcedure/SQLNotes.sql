@@ -16,6 +16,46 @@ select concat(ManagerName ,' -> ',ManagerDesignation) from Manager
 -- get manager with salary eithr with 20k or 30k
 select * from Manager where Salary in (20000,30000)
 
+-- Get salary between range 20k to 30k
+select * from Manager where Salary between 20000 and 30000
+
+-- managerName starts with m
+select * from Manager  where ManagerName like 'm%'
+-- starts with m and end with 1
+select * from Manager  where ManagerName like 'm%1'
+-- managerName that contains h char
+select * from Manager  where ManagerName like '%h%'
+-- managerName end with 'n' and have 5 letters total
+select * from Manager  where ManagerName like '____%n'
+
+--Write a SQL query to print details of the Workers who have Q joined in Mar’2019.
+select * from Manager where month(joiningDate) = 03 and year(joiningDate) = 2019
+-- count of manager withe date after '2019/02/02'
+select count(*) from Manager where joiningdate > '2019/02/02'
+
+-- get projectname and their count in ascending order
+-- Count returns single int value so we need group By here for aggregate functions
+select ProjectName, count(ProjectName) as ProjectCount
+from Manager  group by ProjectName order by ProjectName asc
+
+
+-- get salary given for each project 
+select  ProjectName,sum(Salary) as ProjectTotalSalary
+from Manager group by  ProjectName
+
+-- get project names with managerCount > 2
+select  ProjectName ,count(ManagerName) as ProjectTotalSalary
+from Manager group by  ProjectName  having count(ManagerName) > 2
+
+-- get current date and time
+SELECT getdate();
+
+-- filter by Date
+select count(*) from Manager where joiningdate > '2019/02/02'
+
+-- UNION ALL keeps duplicate records
+-- UNION removes duplicate record
+
 
 -- Get 2nd highest salary using TOP
 select top 1 salary from 
