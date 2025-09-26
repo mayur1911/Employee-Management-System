@@ -56,6 +56,12 @@ select count(*) from Manager where joiningdate > '2019/02/02'
 -- UNION ALL keeps duplicate records
 -- UNION removes duplicate record
 
+-- Manger name with highest salary
+select top 1 ManagerName from Manager  order by Salary desc
+-- below query will return multiple records if more than 1 manager are there with max salary
+
+select ManagerName,Salary from Manager where Salary = (select max(salary) from manager)
+
 
 -- Get 2nd highest salary using TOP
 select top 1 salary from 
@@ -70,6 +76,27 @@ select top 1 salary from
 SELECT MAX(Salary) AS SecondHighestSalary
 FROM Manager
 WHERE Salary < (SELECT MAX(Salary) FROM Manager);
+
+-- select nth highest salary if some of salary are same
+select top 1 t.salary from 
+(select top n salary from Manager order by Salary desc) as t order by Salary asc
+
+-- select nth highest salary without using TOP
+select salary from Manager m1 where n-1 = (select count(distinct(salary)) from Manager m2 
+where m1.Salary <= m2.Salary)
+
+-- select nth highest salary (distinct)
+SELECT TOP 1 Salary
+FROM (
+SELECT DISTINCT TOP 3 Salary
+FROM Manager
+ORDER BY Salary DESC
+)as t
+ORDER BY Salary ASC;
+
+-- Get the employee count in each project and fetch only >= 5 emp count project name wise
+select count(ProjectName) as 'ProjectEmpCount', ProjectName
+from Manager  group by ProjectName  having count(projectname) >= 5
 
 -- Inner join to fetch common records
 select e.*,m.* from Employee e 
