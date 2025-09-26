@@ -94,9 +94,31 @@ ORDER BY Salary DESC
 )as t
 ORDER BY Salary ASC;
 
+-- use dense_rank to get the all 3 highest salary..
+-- this assignes rank to each salary as 1, 2, 3
+-- same rank to same salary
+select salary , ranku from
+(
+	select salary,
+	dense_rank()  over (order by salary desc) as ranku
+	from Manager
+)
+t  where ranku <= 3
+
+-- difference between rank and dense_rank() 
+-- Question no 32
+
 -- Get the employee count in each project and fetch only >= 5 emp count project name wise
 select count(ProjectName) as 'ProjectEmpCount', ProjectName
 from Manager  group by ProjectName  having count(projectname) >= 5
+
+-- get employee details with its manager using inner join
+select e.*,m.* from Employee e
+inner  join Manager m on m.ManagerID = e.ManagerId
+
+-- get manager names with minimum salary
+select ManagerName from Manager where Salary = 
+(select min(Salary) from Manager)
 
 -- Inner join to fetch common records
 select e.*,m.* from Employee e 
