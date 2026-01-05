@@ -59,6 +59,7 @@ builder.Services.AddScoped<IDbConnection>(sp =>
 builder.Services.AddScoped<EmployeeRepository>();
 builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
 builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<IPdfService, PdfService>();
 
 // Section: Redis Caching
 // Register Redis for distributed caching and set the Redis instance name.

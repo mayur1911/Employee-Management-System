@@ -35,8 +35,8 @@ namespace RedisCachingWebApi.Application.Handlers.Manager
                 var managerData = await _managerRepository.GetAllManagerDatasAsync();
                 var salaryHigh3400 = managerData.Where(x => x.Salary >= 3400 && x.ManagerName=="string").ToList();
 
-                var salarySort = managerData.OrderBy(x => x.Salary).Select(x => new {x.Salary,x.ProjectName}).ToList();
-                var salarySortDesc = managerData.OrderByDescending(x=>x.Salary).ToList();
+                var salarySort = managerData.OrderBy(x => x.Salary).Select(x => new { x.Salary, x.ProjectName }).ToList();
+                var salarySortDesc = managerData.OrderByDescending(x => x.Salary).ToList();
 
                 var mayurData = managerData.FirstOrDefault(x => x.ManagerName == "MAYUR YEOLE");
                 try
@@ -44,8 +44,7 @@ namespace RedisCachingWebApi.Application.Handlers.Manager
                     var mayurExcData = managerData.First(x => x.ManagerName == "MAYUR YEOLE");
                 }
                 catch (Exception ex)
-                { 
-                
+                {
                 }
 
                 var onlyDesignation = managerData.Select(x => x.ManagerDesignation).ToList();
@@ -60,7 +59,6 @@ namespace RedisCachingWebApi.Application.Handlers.Manager
                 var taxAllManager = managerData.All(x => x.ProjectName == "tax");
 
                 var taxProjManagerDesc = managerData.Where(x => x.ProjectName=="tax").ToList();
-
 
                 // grp by prject name
                 var projectGroup = managerData.GroupBy(x => x.ProjectName).Select(x => x).ToList();
