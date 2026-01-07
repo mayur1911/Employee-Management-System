@@ -10,8 +10,12 @@ using Serilog;
 using StackExchange.Redis;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
 
 // 1️⃣ Add DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
