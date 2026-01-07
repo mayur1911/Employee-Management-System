@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        color: #000000;
+      }
+
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 20px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th {
+        background-color: #34495e;
+        color: gray;
+        padding: 8px;
+        text-align: left;
+      }
+
+      td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      .footer {
+        margin-top: 20px;
+        font-size: 10px;
+        text-align: right;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Employee Report Generated</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Employee ID</th>
+          <th>Name</th>
+          <th>Manager ID</th>
+          <th>Designation</th>
+          <th>Project</th>
+          <th>Skill</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ROWS}}
+      </tbody>
+    </table>
+
+    <div class="footer">Generated on: {{GENERATED_ON}}</div>
+  </body>
+</html>

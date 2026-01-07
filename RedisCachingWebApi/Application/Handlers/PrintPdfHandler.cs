@@ -50,101 +50,33 @@ namespace RedisCachingWebApi.Application.Handlers
 
             private string BuildEmployeeHtml(List<EmployeeData> employees)
             {
-                var sb = new StringBuilder();
-                var generatedOn = DateTime.Now.ToString("dd-MMM-yyyy HH:mm");
+                var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "EmployeeReport.html");
 
-                sb.Append("""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset='utf-8' />
-            <style>
-                body {
-                    font-family: Arial, Helvetica, sans-serif;
-                    font-size: 12px;
-                    color: green;
-                }
+                var htmlTemplate = File.ReadAllText(templatePath);
 
-                h1 {
-                    text-align: center;
-                    color: #2c3e50;
-                    margin-bottom: 20px;
-                }
-
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                }
-
-                th {
-                    background-color: #34495e;
-                    color: white;
-                    padding: 8px;
-                    text-align: left;
-                }
-
-                td {
-                    padding: 8px;
-                    border-bottom: 1px solid #ddd;
-                }
-
-                tr:nth-child(even) {
-                    background-color: #f2f2f2;
-                }
-
-                .footer {
-                    margin-top: 20px;
-                    font-size: 10px;
-                    text-align: right;
-                    color: red;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>Employee Report</h1>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Employee ID</th>
-                        <th>Name</th>
-                        <th>Manager ID</th>
-                        <th>Designation</th>
-                        <th>Project</th>
-                        <th>Skill</th>
-                    </tr>
-                </thead>
-                <tbody>
-        """);
+                var rowsBuilder = new StringBuilder();
 
                 foreach (var e in employees)
                 {
-                    sb.Append($"""
-                <tr>
-                    <td>{e.EmployeeID}</td>
-                    <td>{e.EmpName}</td>
-                    <td>{e.ManagerId}</td>
-                    <td>{e.EmpDesignation}</td>
-                    <td>{e.ProjectName}</td>
-                    <td>{e.Skill}</td>
-                </tr>
-            """);
+                    rowsBuilder.Append($"""
+            <tr>
+                <td>{e.EmployeeID}</td>
+                <td>{e.EmpName}</td>
+                <td>{e.ManagerId}</td>
+                <td>{e.EmpDesignation}</td>
+                <td>{e.ProjectName}</td>
+                <td>{e.Skill}</td>
+            </tr>
+        """);
                 }
 
-                sb.Append("""
-                </tbody>
-            </table>
+                htmlTemplate = htmlTemplate
+                    .Replace("{{ROWS}}", rowsBuilder.ToString())
+                    .Replace("{{GENERATED_ON}}", DateTime.Now.ToString("dd-MMM-yyyy HH:mm"));
 
-            <div class="footer">
-                Generated on: : {generatedOn}
-            </div>
-
-        </body>
-        </html>
-        """);
-
-                return sb.ToString();
+                return htmlTemplate;
             }
+
         }
     }
 }

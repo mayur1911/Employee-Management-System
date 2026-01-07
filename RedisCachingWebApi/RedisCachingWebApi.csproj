@@ -9,6 +9,10 @@
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Templates\EmployeeReport.html" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="13.0.1" />
 		<PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
@@ -38,5 +42,9 @@
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.2" />
 		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
 		<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="7.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Include="Templates\EmployeeReport.html" />
 	</ItemGroup>
 </Project>
