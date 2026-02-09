@@ -13,7 +13,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - RedisConnection=redis:6379
-      - ConnectionStrings__Employee=Server=sqlserver;Database=Employee;User=sa;Password=YourPassword123!
+      - ConnectionStrings__Employee=Server=sqlserver;Database=Employee;User=sa;Password=YourPassword123!;TrustServerCertificate=True
 
   redis:
     image: redis:latest
@@ -52,7 +52,7 @@ services:
 
       echo 'Deploying DACPAC file';
       /opt/sqlpackage/sqlpackage /Action:Publish /SourceFile:/var/opt/mssql/dacpac/RedisCacheDatabase.dacpac \
-      /TargetConnectionString:'Server=sqlserver;Initial Catalog=Employee;User Id=sa;Password=YourPassword123!;Encrypt=False;TrustServerCertificate=True' || echo 'Error deploying DACPAC';
+      /TargetConnectionString:'Server=sqlserver;Initial Catalog=Employee;User Id=sa;Password=YourPassword123!;TrustServerCertificate=True' || echo 'Error deploying DACPAC';
       "
 
 volumes:

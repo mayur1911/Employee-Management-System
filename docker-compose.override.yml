@@ -6,7 +6,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - RedisConnection=redis:6379
-      - ConnectionStrings__Employee=Server=sqlserver;Database=Employee;User=sa;Password=YourPassword123!
+      - ConnectionStrings__Employee=Server=sqlserver;Database=Employee;User=sa;Password=YourPassword123!;TrustServerCertificate=True
     ports:
       - "5000:80"  # Override to a different port for development
       - "5001:443" # Override to a different HTTPS port for development

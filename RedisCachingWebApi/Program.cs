@@ -9,7 +9,7 @@ using RedisCachingWebApi.Swagger;
 using Serilog;
 using StackExchange.Redis;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -147,6 +147,7 @@ app.UseStaticFiles();
 // Section: Routing and Authorization
 // Enable request routing and use authorization policies.
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 
 // Section: Map Controller Routes
